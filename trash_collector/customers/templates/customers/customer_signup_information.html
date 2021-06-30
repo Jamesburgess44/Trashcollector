@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action="{%url 'customers:customer_signup' customer.id %}" method="post">
+    {% csrf_token %}
+    <table>
+        <tr>
+            <th>Address</th>
+            <td><input type="text" name="customer_address"></td>
+        </tr>
+         <tr>
+            <th>Customer Zipcode</th>
+            <td><input type="text" name="customer_zip_code"></td>
+        </tr>
+         <tr>
+            <th>Weekly Pickup Date</th>
+            <td><input type="text" name="weekly_pickup_day"></td>
+        </tr>
+    </table>
+    <input type="submit" value="Submit">
+</form>
+</body>
+</html>
