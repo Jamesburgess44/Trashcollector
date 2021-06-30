@@ -11,31 +11,18 @@ from .forms import customer_forms
 def index(request):
     # The following line will get the logged-in in user (if there is one) within any view function
     user = request.user
-    customers = Group.objects.get(name="Customers")
-    customers.user_set.add(user)
     # It will be necessary while creating a customer/employee to assign the logged-in user as the user foreign key
     # This will allow you to later query the database using the logged-in user,
     # thereby finding the customer/employee profile that matches with the logged-in user.
-    print(user)
     return render(request, 'customers/index.html')
-
-"""
-def create_customer(request):
-    user = request.user
-
-    
     
 
-
-
-def customer_signup(request, customer_id):
-    customer = Customer.objects.get(pk=customer_id)
-    form = customer_forms(request.POST, instance=customer)
+def customer_signup(request):
+    form = customer_forms(request.POST)
     if form.is_valid():
         form.save()
-        return redirect('/accounts/login/')
+        return redirect('/customers/')
     context = {
         'form': form
     }
     return render(request, "customers/customer_signup_information.html", context)
-"""
