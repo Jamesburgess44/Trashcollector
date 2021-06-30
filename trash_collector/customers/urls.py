@@ -7,5 +7,5 @@ from . import views
 app_name = "customers"
 urlpatterns = [
     path('', views.index, name="index"),
-    path('customer/<int:customer_id>/', views.customer_signup, name="customer_signup")
+    # path('customer/<int:customer_id>/', views.customer_signup, name="customer_signup")
 ]

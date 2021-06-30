@@ -1,5 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
+from django.contrib.auth.models import Group
 from .models import Customer
 from .forms import customer_forms
 # Create your views here.
@@ -10,11 +11,21 @@ from .forms import customer_forms
 def index(request):
     # The following line will get the logged-in in user (if there is one) within any view function
     user = request.user
+    customers = Group.objects.get(name="Customers")
+    customers.user_set.add(user)
     # It will be necessary while creating a customer/employee to assign the logged-in user as the user foreign key
     # This will allow you to later query the database using the logged-in user,
     # thereby finding the customer/employee profile that matches with the logged-in user.
     print(user)
     return render(request, 'customers/index.html')
+
+"""
+def create_customer(request):
+    user = request.user
+
+    
+    
+
 
 
 def customer_signup(request, customer_id):
@@ -27,3 +38,4 @@ def customer_signup(request, customer_id):
         'form': form
     }
     return render(request, "customers/customer_signup_information.html", context)
+"""
