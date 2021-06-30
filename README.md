@@ -1,0 +1,2 @@
+# Trashcollector
+second Django project
