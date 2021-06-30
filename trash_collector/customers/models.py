@@ -16,3 +16,4 @@ class Customer(models.Model):
     customer_zip_code = models.CharField(max_length=50)
     weekly_pickup_confirmed = True
     suspension = False
+
