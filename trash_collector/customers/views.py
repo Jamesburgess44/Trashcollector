@@ -15,9 +15,9 @@ def index(request):
     # This will allow you to later query the database using the logged-in user,
     # thereby finding the customer/employee profile that matches with the logged-in user.
     return render(request, 'customers/index.html')
-    
 
 def customer_signup(request):
+    user_id = request.user.id
     form = customer_forms(request.POST)
     if form.is_valid():
         form.save()
@@ -26,3 +26,17 @@ def customer_signup(request):
         'form': form
     }
     return render(request, "customers/customer_signup_information.html", context)
+
+
+def customer_account_info(request):
+    user_id = request.user.id
+    user_setup = Customer.objects.get(pk=user_id)
+    form = customer_forms(request.POST, instance=user_setup)
+    if form.is_valid():
+        form.save()
+        return redirect('/customers/')
+    context = {
+        'form': form
+    }
+    return render(request, "customers/customer_signup_information.html", context)
+
