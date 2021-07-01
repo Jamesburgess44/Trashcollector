@@ -34,20 +34,17 @@ def customer_signup(request):
         return render(request, 'customers/customer_signup_information.html')
 
 
-
-
-def customer_account_info(request, user_id):
-    customer = Customer.objects.get(pk=user_id)
-    form = customer_forms(instance=customer)
-    if request.method == 'POST':
-        form = customer_forms(request.POST, instance=customer)
-        if form.is_valid():
-            form.save()
-            return redirect('/customers/')
-        context = {
-            'form': form
-        }
-        return render(request, "customers/account_info.html", context)
+def customer_account_info(request):
+    user = request.user
+    customer = Customer.objects.get(user_id=user.id)
+    form = customer_forms(request.POST, instance=customer)
+    if form.is_valid():
+        form.save()
+        return redirect('/customers/')
+    context = {
+        'form': form
+    }
+    return render(request, "customers/account_info.html", context)
 
 
 def change_pickup_day(request, customer_id):

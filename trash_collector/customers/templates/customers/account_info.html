@@ -6,7 +6,7 @@
 {% block header %} Customer Signup  {% endblock %}
 
 {% block content %}
-        <form action="{%url 'customers:customer_account_info' user.id%}" method="POST">
+        <form action="{%url 'customers:customer_account_info' %}" method="POST">
             {% csrf_token %}
             <table>
                 <tr>
