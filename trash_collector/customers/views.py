@@ -28,15 +28,14 @@ def customer_signup(request):
     return render(request, "customers/customer_signup_information.html", context)
 
 
-def customer_account_info(request):
-    user_id = request.user.id
-    user_setup = Customer.objects.get(pk=user_id)
-    form = customer_forms(request.POST, instance=user_setup)
+def customer_account_info(request, customer_pk):
+    customer = Customer.objects.get(pk=customer_pk)
+    form = customer_forms(request.POST, instance=customer)
     if form.is_valid():
         form.save()
         return redirect('/customers/')
     context = {
         'form': form
     }
-    return render(request, "customers/customer_signup_information.html", context)
+    return render(request, "customers/account_info.html", context)
 
