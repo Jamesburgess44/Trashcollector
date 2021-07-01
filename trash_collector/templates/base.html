@@ -23,7 +23,7 @@
             <a class="nav-link" href="{% url 'customers:customer_account_info' user.id %}">Account Info</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Change Pickup Day</a>
+            <a class="nav-link" href="{% url 'customers:change_pickup_day' user.id%}">Change Pickup Day</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{% url 'customers:customer_signup' %}">Customer Registration</a>

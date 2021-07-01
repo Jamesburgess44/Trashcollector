@@ -3,15 +3,15 @@
 
 {% block title %} Customer Signup {% endblock %}
 
-{% block header %} Customer Signup {% endblock %}
+{% block header %} Customer Signup  {% endblock %}
 
 {% block content %}
-        <form action="{%url 'customers:customer_account_info' user.id %}" method="POST">
+        <form action="{%url 'customers:customer_account_info' user.id%}" method="POST">
             {% csrf_token %}
             <table>
                 <tr>
                     <th>Name</th>
-                    <td><input type="text" name="name" Value="{{user.username}}" ></td>
+                    <td><input type="text" name="name" Value="{{customer.name}}" ></td>
                 </tr>
                 <tr>
                     <th>Address</th>
