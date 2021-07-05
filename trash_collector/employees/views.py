@@ -23,3 +23,15 @@ def employee_signup(request):
         return redirect('/employees/')
     else:
         return render(request, 'employees/employee_signup_information.html')
+
+
+# TODO: make url link, add to index?html page to give place for table to populate,
+# def employee_landing_view():
+# table_of_customers = []
+# identify specific employee to use zip
+# identify all customers
+# sql search
+#      cust zip == this_employee_zip
+#       (cust pickup day OR one time pickup == today) AND... cust_account_active = True
+#
+#
