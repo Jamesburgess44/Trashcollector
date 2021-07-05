@@ -38,4 +38,36 @@
         </form>
             {% include 'customers/messages.html' %}
 
+<div id="paypal-button-container"></div>
+
+    <!-- Include the PayPal JavaScript SDK -->
+    <script src="https://www.paypal.com/sdk/js?client-id=AWi2Boh2fmIVu9bD7wiP0PtEq8lxgci82KKaHozpVRv72C23i_RIcRq4SW6r2oqD6DOaU_55vi2LWmIg&currency=USD"></script>
+
+    <script>
+        // Render the PayPal button into #paypal-button-container
+        paypal.Buttons({
+
+            // Set up the transaction
+            createOrder: function(data, actions) {
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: {
+                            value: '5.00' //COME BACK TO AND CHANGE THIS TO CUSTOMER BALANCE
+                        }
+                    }]
+                });
+            },
+
+            // Finalize the transaction
+            onApprove: function(data, actions) {
+                return actions.order.capture().then(function(details) {
+                    // Show a success message to the buyer
+                    alert('Transaction completed by ' + details.payer.name.given_name + '!');
+                });
+            }
+
+
+        }).render('#paypal-button-container');
+    </script>
+
 {% endblock %}
