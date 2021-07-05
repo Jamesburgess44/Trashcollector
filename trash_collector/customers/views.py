@@ -75,12 +75,13 @@ def change_pickup_day(request):
     if not customer.exists():
         return redirect("/customers/customer")
     customer_info = Customer.objects.get(user_id=user.id)
-    form = change_pickup_form(request.POST, instance=customer)
+    form = change_pickup_form(request.POST, instance=customer_info)
     if form.is_valid():
         form.save()
-        return redirect('/customers/')
+        messages.success(request, 'successfully saved')
+        return redirect('/customers/weekly_pickup/')
     context = {
         'form': form,
-        'customer': customer_info
+        'customer_info': customer_info
     }
     return render(request, "customers/customer_change_pickup_day.html", context)
