@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import Group
 from .models import Customer
 from .forms import customer_forms, change_pickup_form
+from django.contrib import messages
 from django.urls import reverse
 
 
@@ -59,7 +60,8 @@ def customer_account_info(request):
     form = customer_forms(request.POST, instance=customer_info)
     if form.is_valid():
         form.save()
-        return redirect('/customers/')
+        messages.success(request, 'successfully saved')
+        return redirect('/customers/account_info')
     context = {
         'form': form,
         'customer_info': customer_info
