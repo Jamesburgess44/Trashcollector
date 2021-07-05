@@ -27,6 +27,8 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{% url 'customers:customer_signup' %}">Customer Registration</a>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
           </li>
         </ul>
       </div>
@@ -35,11 +37,10 @@
     <p>Employee Navbar</p>
     {% endif %}
   {% endfor %}
-  <p><a href="{% url 'logout' %}">Log Out</a></p>
 {% endif %}
   <main>
     <h1>{% block header %} {% endblock %}</h1>
-    {% block content %}
+    <p class="font-weight-light text-left" style="font-size: 24px">{% block content %}</p>
     {% endblock %}
   </main>
 </body>
