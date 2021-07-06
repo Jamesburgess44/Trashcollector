@@ -1,0 +1,24 @@
+
+{% extends 'base.html' %}
+
+{% block title %}{% block header %} Search By Day {% endblock %}{% endblock %}
+
+{% block content %}
+<table class="table table-borderless">
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Address</th>
+      <th scope="col">Zipcode</th>
+    </tr>
+  </thead>
+{% for customer in search_by_day %}
+  <tr>
+    <td>{{customer.name}}</td>
+    <td>{{customer.customer_address}}</td>
+    <td>{{customer.customer_zip_code}}</td>
+  </tr>
+{% endfor %}
+  </table>
+
+{% endblock %}

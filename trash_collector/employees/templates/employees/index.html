@@ -5,16 +5,14 @@
 {% block content %}
   {% if user.is_authenticated %}
     Hello Employee {{ user.username }}!
-<table>
-  <th title="Customers">
-         <p>Today's Trash Pickup</p>
+<table class="table table-borderless">
+  <thead>
     <tr>
-      <th>Name</th>
-      <th>Address</th>
-      <th>Zipcode</th>
+      <th scope="col">Name</th>
+      <th scope="col">Address</th>
+      <th scope="col">Zipcode</th>
     </tr>
-  </th>
-</table>
+  </thead>
 {% for customer in todays_customers %}
   <tr>
     <td>{{customer.name}}</td>
@@ -22,6 +20,17 @@
     <td>{{customer.customer_zip_code}}</td>
   </tr>
 {% endfor %}
+  </table>
+<div class="dropdown">
+  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Search By Day
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <form action="{%url 'employees:choose_by_day' %}" method="get">
+      <input class="form-control" type="text" name="day_of_week">
+      <input class="form-control" type="submit" value="submit">
+    </form>
+</div>
   {% else %}
     <p>You are at the employee index, but you are not logged in.</p>
     <a href="{% url 'login' %}">Log In</a>

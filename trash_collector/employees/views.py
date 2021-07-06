@@ -4,6 +4,7 @@ from django.apps import apps
 from .models import Employee
 import calendar
 from datetime import date
+from django.contrib import messages
 # Create your views here.
 
 # TODO: Create a function for each path created in employees/urls.py. Each will need a template as well.
@@ -39,19 +40,43 @@ def employee_signup(request):
 #
 def employee_home_view(request):
     user = request.user
-    active_employee = Employee.objects.get(user_id=user.id)
+    active_employee = Employee.objects.filter(user_id=user.id)
+    if not active_employee.exists():
+        return redirect('/employees/employee')
     customer_model = apps.get_model('customers.Customer')
+    employee_info = Employee.objects.get(user_id=user.id)
     all_customers = customer_model.objects.all()
     curr_date = date.today()
     day_of_the_week = calendar.day_name[curr_date.weekday()]
     todays_customers = []
     for customer in all_customers:
-        if customer.customer_zip_code == active_employee.employee_zip_code and (customer.weekly_pickup_day or customer.onetime_pickup_date == day_of_the_week) and customer.start_suspension_date is None:
+        if (customer.customer_zip_code == employee_info.employee_zip_code) and (customer.weekly_pickup_day == day_of_the_week.lower() or customer.onetime_pickup_date == day_of_the_week.lower()) and (customer.start_suspension_date is None):
             todays_customers.append(customer)
     context = {
         "todays_customers": todays_customers
     }
     return render(request, 'employees/index.html', context)
 
+# CHOOSE BY DAY CHANGE LINE 73 TO ACTUAL DATE FOR ONETIME PICKUP DATE
+def choose_by_day(request):
+    days_of_week = {'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'}
+    user = request.user
+    day_input = request.GET.get('day_of_week')
+    for day in days_of_week:
+        if day.lower() == day_input.lower():
+            customer_model = apps.get_model('customers.Customer')
+            employee_info = Employee.objects.get(user_id=user.id)
+            all_customers = customer_model.objects.all()
+            search_by_day = []
+            for customer in all_customers:
+                if (customer.customer_zip_code == employee_info.employee_zip_code) and (
+                        customer.weekly_pickup_day.lower() == day.lower() or customer.onetime_pickup_date == day.lower()) and (customer.start_suspension_date is None):
+                    search_by_day.append(customer)
+            context = {
+                "search_by_day": search_by_day
+            }
+            return render(request, 'employees/search_by_day.html', context)
+    else:
+        return redirect('/employees/')
 
 
