@@ -70,6 +70,7 @@ def customer_account_info(request):
 
 
 def change_pickup_day(request):
+    days_list = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
     user = request.user
     customer = Customer.objects.filter(user_id=user.id)
     if not customer.exists():
