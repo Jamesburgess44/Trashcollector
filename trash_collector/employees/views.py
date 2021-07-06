@@ -17,6 +17,10 @@ def index(request):
 
 
 def employee_signup(request):
+    user = request.user
+    employee = Employee.objects.filter(user_id=user.id)
+    if employee.exists():
+        return redirect("/employees/")
     if request.method == 'POST':
         employee_name = request.POST.get('name')
         employee_zip_code = request.POST.get('employee_zip_code')
@@ -79,4 +83,22 @@ def choose_by_day(request):
     else:
         return redirect('/employees/')
 
+# MAKE SURE TO MAKE CONDITIONAL FOR IF CUSTOMER ACCOUNT IS SUSPENDED
 
+
+def confirm_pickup(request, customer_id):
+    employee_confirm_pickup = request.GET.get('confirm_pickup')
+    customer = apps.get_model('customers.Customer')
+    customer_update = customer.objects.get(user_id=customer_id)
+    if customer_update.weekly_pickup_confirmed is False:
+        if employee_confirm_pickup.lower() == 'yes':
+            customer_update.customer_balance += 5
+            customer_update.weekly_pickup_confirmed = True
+            customer_update.save()
+            return redirect('/employees/')
+    elif employee_confirm_pickup.lower() == 'no':
+        customer_update.weekly_pickup_confirmed = False
+        customer_update.save()
+        return redirect('/employees/')
+
+    return redirect('/employees/')

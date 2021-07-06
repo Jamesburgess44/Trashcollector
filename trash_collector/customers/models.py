@@ -14,6 +14,6 @@ class Customer(models.Model):
     customer_balance = models.IntegerField(default=0)
     customer_address = models.CharField(max_length=50)
     customer_zip_code = models.CharField(max_length=50)
-    weekly_pickup_confirmed = True
+    weekly_pickup_confirmed = models.BooleanField(default=False)
     suspension = False
 

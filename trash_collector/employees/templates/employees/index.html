@@ -18,6 +18,18 @@
     <td>{{customer.name}}</td>
     <td>{{customer.customer_address}}</td>
     <td>{{customer.customer_zip_code}}</td>
+    <td><div class="dropdown">
+  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Confirm Pickup
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <form action="{%url 'employees:confirm_pickup' customer.user_id%}" method="get">
+      <input class="form-control" type="text" name="confirm_pickup">
+      <input class="form-control" type="submit" value="submit">
+    </form>
+</div>
+</div>
+    </td>
   </tr>
 {% endfor %}
   </table>
@@ -30,6 +42,7 @@
       <input class="form-control" type="text" name="day_of_week">
       <input class="form-control" type="submit" value="submit">
     </form>
+</div>
 </div>
   {% else %}
     <p>You are at the employee index, but you are not logged in.</p>
