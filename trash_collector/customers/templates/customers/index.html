@@ -7,7 +7,7 @@
 
 {% block content %}
   {% if user.is_authenticated %}
-    Hello Customer {{ user.username }}!
+    Hello {{ user.username }}!
 <div class="container">
      <img class="img-fluid" src="{% static 'images/trash.png' %}" alt="photo">
    </div>

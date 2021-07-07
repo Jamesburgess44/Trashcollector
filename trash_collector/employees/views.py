@@ -60,7 +60,10 @@ def employee_home_view(request):
     day_of_the_week = calendar.day_name[curr_date.weekday()]
     todays_customers = []
     for customer in all_customers:
-        if (customer.customer_zip_code == employee_info.employee_zip_code) and (customer.weekly_pickup_day.lower() == day_of_the_week.lower() or customer.onetime_pickup_date == curr_date) and (customer.start_suspension_date is None):
+        if (customer.customer_zip_code == employee_info.employee_zip_code) and (
+                customer.weekly_pickup_day.lower() == day_of_the_week.lower() and (
+                customer.weekly_pickup_confirmed is False
+        ) or customer.onetime_pickup_date == curr_date) and (customer.start_suspension_date is None):
             todays_customers.append(customer)
     context = {
         "todays_customers": todays_customers
@@ -80,7 +83,8 @@ def choose_by_day(request):
             search_by_day = []
             for customer in all_customers:
                 if (customer.customer_zip_code == employee_info.employee_zip_code) and (
-                        customer.weekly_pickup_day.lower() == day.lower() or customer.onetime_pickup_date == day.lower()) and (customer.start_suspension_date is None):
+                        customer.weekly_pickup_day.lower() == day.lower(
+                ) or customer.onetime_pickup_date == day.lower()) and (customer.start_suspension_date is None):
                     search_by_day.append(customer)
             context = {
                 "search_by_day": search_by_day
