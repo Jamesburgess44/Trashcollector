@@ -66,6 +66,13 @@
     <p class="font-weight-light text-left" style="font-size: 24px">{% block content %}</p>
     {% endblock %}
   </main>
+<script>
+  setTimeout(function(){
+    if ($('#msg').length > 0) {
+      $('#msg').remove();
+    }
+  }, 3000)
+</script>
 </body>
 </html>
 {# This is the parent template that should be extended by any other view you create #}

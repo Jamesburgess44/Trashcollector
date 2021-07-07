@@ -127,3 +127,16 @@ try:
     from trash_collector.local_settings import *
 except ImportError:
     pass
+
+
+from django.contrib.messages import constants as messages
+
+
+MESSAGE_TAGS = {
+    messages.ERROR: 'alert-danger',
+    messages.INFO: 'alert-info',
+    messages.SUCCESS: 'alert-success',
+    messages.WARNING: 'alert-warning',
+    messages.DEBUG: 'alert-info',
+
+}

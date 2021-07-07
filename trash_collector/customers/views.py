@@ -20,9 +20,10 @@ def index(request):
     # thereby finding the customer/employee profile that matches with the logged-in user.
     return render(request, 'customers/index.html')
 
-
+# ADD CHECK TO MAKE SURE APP CANT BREAK IF DAY_INPUT IS NOT INPUTTED
 def customer_signup(request):
     user = request.user
+    day_input = request.POST.get('day_of_week')
     customer = Customer.objects.filter(user_id=user.id)
     if customer.exists():
         return redirect("/customers/")
@@ -30,7 +31,7 @@ def customer_signup(request):
         customer_name = request.POST.get('name')
         customer_address = request.POST.get('customer_address')
         customer_zip_code = request.POST.get('customer_zip_code')
-        customer_weekly_pickup_day = request.POST.get('weekly_pickup_day')
+        customer_weekly_pickup_day = day_input
         new_customer = Customer(name=customer_name, customer_address=customer_address,
                                 customer_zip_code=customer_zip_code, weekly_pickup_day=customer_weekly_pickup_day,
                                 user=request.user)

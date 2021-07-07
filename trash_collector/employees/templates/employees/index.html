@@ -50,6 +50,7 @@
 </form>
 </div>
 </div>
+{% include 'registration/messages.html' %}
   {% else %}
     <p>You are at the employee index, but you are not logged in.</p>
     <a href="{% url 'login' %}">Log In</a>
