@@ -4,6 +4,8 @@ from django.contrib.auth.models import Group
 from .models import Customer
 from .forms import customer_forms, change_pickup_form
 from django.contrib import messages
+from django.http import JsonResponse
+import json
 from django.urls import reverse
 
 
@@ -103,3 +105,15 @@ def change_pickup_day(request):
         'customer_info': customer_info
     }
     return render(request, "customers/customer_change_pickup_day.html", context)
+
+
+def complete_purchase(request):
+    body = json.loads(request.body)
+    print('BODY:', body)
+    customer = Customer.objects.get(id=body['customer_id'])
+    if customer.customer_balance > 0:
+        customer.customer_balance = 0
+        customer.save()
+        return redirect('/customers/account_info/')
+    else:
+        return redirect('/customers/account_info/')
