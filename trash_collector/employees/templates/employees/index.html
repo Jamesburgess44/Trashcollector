@@ -21,12 +21,12 @@
     <td>{{customer.customer_zip_code}}</td>
     <td><div class="dropdown">
   <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Confirm Pickup
+    Pickup Confirmation
   </button>
   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
     <form action="{%url 'employees:confirm_pickup' customer.user_id%}" method="get">
-      <input class="form-control" type="text" name="confirm_pickup">
-      <input class="form-control" type="submit" value="submit">
+      <input class="form-control" type="submit" value="yes" name="confirm_pickup">
+      <input class="form-control" type="submit" value="no" name="confirm_pickup">
     </form>
 </div>
 </div>
@@ -39,10 +39,15 @@
     Search By Day
   </button>
   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-    <form action="{%url 'employees:choose_by_day' %}" method="get">
-      <input class="form-control" type="text" name="day_of_week">
-      <input class="form-control" type="submit" value="submit">
-    </form>
+<form action="{%url 'employees:choose_by_day' %}" method="get">
+      <input class="form-control" type="submit" value="Sunday" name="day_of_week">
+      <input class="form-control" type="submit" value="Monday" name="day_of_week">
+      <input class="form-control" type="submit" value="Tuesday" name="day_of_week">
+      <input class="form-control" type="submit" value="Wednesday" name="day_of_week">
+      <input class="form-control" type="submit" value="Thursday" name="day_of_week">
+      <input class="form-control" type="submit" value="Friday" name="day_of_week">
+      <input class="form-control" type="submit" value="Saturday" name="day_of_week">
+</form>
 </div>
 </div>
   {% else %}
