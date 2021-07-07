@@ -38,9 +38,17 @@
         </form>
             {% include 'customers/messages.html' %}
 
-<div id="paypal-button-container"></div>
+<div class="container d-flex justify-content-center" id="paypal-button-container">
+    <div class="row">
+        <div class="col-sm">
+        </div>
+    </div>
+</div>
 
-    <!-- Include the PayPal JavaScript SDK -->
+<div class="container">
+    <div class="row">
+        <div class="col-">
+              <!-- Include the PayPal JavaScript SDK -->
     <script src="https://www.paypal.com/sdk/js?client-id=AWi2Boh2fmIVu9bD7wiP0PtEq8lxgci82KKaHozpVRv72C23i_RIcRq4SW6r2oqD6DOaU_55vi2LWmIg&currency=USD"></script>
 
     <script>
@@ -70,5 +78,11 @@
 
         }).render('#paypal-button-container');
     </script>
+        </div>
+    </div>
+</div>
+
+
+
 
 {% endblock %}

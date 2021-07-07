@@ -12,17 +12,35 @@
                 <tr>
                     <th scope="col">Name</th>
                     <td scope="row"><input class="form-control" type="text" name="name" Value="{{customer_info.name}}" readonly></td>
+                    <td></td>
                 </tr>
                 <tr>
                     <th scope="col">Weekly Pickup Day</th>
-                    <td scope="row"><input class="form-control" type="text" name="weekly_pickup_day" Value="{{customer_info.weekly_pickup_day}}"></td>
+                    <td scope="row"><input class="form-control" type="text" name="weekly_pickup_day" Value="{{customer_info.weekly_pickup_day}}" readonly></td>
+                    <td><div class="btn-group dropright">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Change Weekly Pickup Day
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <form action="{%url 'customers:change_pickup_day' %}" method="post">
+                      <input class="form-control" type="submit" value="Sunday" name="day_of_week">
+                      <input class="form-control" type="submit" value="Monday" name="day_of_week">
+                      <input class="form-control" type="submit" value="Tuesday" name="day_of_week">
+                      <input class="form-control" type="submit" value="Wednesday" name="day_of_week">
+                      <input class="form-control" type="submit" value="Thursday" name="day_of_week">
+                      <input class="form-control" type="submit" value="Friday" name="day_of_week">
+                      <input class="form-control" type="submit" value="Saturday" name="day_of_week">
+                        </form>
+                        </div>
+                        </div>
+                    </td>
                 </tr>
                 <tr>
                     <th scope="col">Single Pickup Date</th>
                     <td scope="row"><input class="form-control" type="date" name="onetime_pickup_date"></td>
+                    <td><input class="" type="submit" value="Submit"></td>
                 </tr>
             </table>
-            <input class="form-control" type="submit" value="Submit">
         </form>
             {% include 'customers/messages.html' %}
 {% endblock %}

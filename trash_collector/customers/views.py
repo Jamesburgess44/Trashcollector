@@ -70,14 +70,16 @@ def customer_account_info(request):
 
 
 def change_pickup_day(request):
-    days_list = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
     user = request.user
+    day_input = request.POST.get('day_of_week')
     customer = Customer.objects.filter(user_id=user.id)
     if not customer.exists():
         return redirect("/customers/customer")
     customer_info = Customer.objects.get(user_id=user.id)
     form = change_pickup_form(request.POST, instance=customer_info)
     if form.is_valid():
+        if day_input is not None:
+            customer_info.weekly_pickup_day = day_input
         form.save()
         messages.success(request, 'successfully saved')
         return redirect('/customers/weekly_pickup/')

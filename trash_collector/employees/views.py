@@ -54,14 +54,14 @@ def employee_home_view(request):
     day_of_the_week = calendar.day_name[curr_date.weekday()]
     todays_customers = []
     for customer in all_customers:
-        if (customer.customer_zip_code == employee_info.employee_zip_code) and (customer.weekly_pickup_day.lower() == day_of_the_week.lower() or customer.onetime_pickup_date == day_of_the_week.lower()) and (customer.start_suspension_date is None):
+        if (customer.customer_zip_code == employee_info.employee_zip_code) and (customer.weekly_pickup_day.lower() == day_of_the_week.lower() or customer.onetime_pickup_date == curr_date) and (customer.start_suspension_date is None):
             todays_customers.append(customer)
     context = {
         "todays_customers": todays_customers
     }
     return render(request, 'employees/index.html', context)
 
-# CHOOSE BY DAY CHANGE LINE 73 TO ACTUAL DATE FOR ONETIME PICKUP DATE
+
 def choose_by_day(request):
     days_of_week = {'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'}
     user = request.user
@@ -82,8 +82,6 @@ def choose_by_day(request):
             return render(request, 'employees/search_by_day.html', context)
     else:
         return redirect('/employees/')
-
-# MAKE SURE TO MAKE CONDITIONAL FOR IF CUSTOMER ACCOUNT IS SUSPENDED
 
 
 def confirm_pickup(request, customer_id):
