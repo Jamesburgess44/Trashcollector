@@ -6,18 +6,19 @@
 {% block header %} Employee Registration {% endblock %}
 
 {% block content %}
-        <form action="{%url 'employees:employee_signup' %}" method="POST">
+        <form  action="{%url 'employees:employee_signup' %}" method="POST">
             {% csrf_token %}
-            <table>
+            <table class="table table-borderless table-hover">
                 <tr>
-                    <th>Name</th>
-                    <td><input type="text" name="name" Value="{{name}}" ></td>
+                    <th scope="col">Name</th>
+                    <td scope="row"><input class="form-control" type="text" name="name" Value="{{name}}" ></td>
                 </tr>
                  <tr>
-                    <th>Employee Zipcode</th>
-                    <td><input type="text" name="employee_zip_code" Value="{{employee_zip_code}}"></td>
+                    <th scope="col">Employee Zipcode</th>
+                    <td scope="row"><input class="form-control" type="text" name="employee_zip_code" Value="{{employee_zip_code}}"></td>
                 </tr>
             </table>
-            <input type="submit" value="Submit">
+            <input class="form-control btn-dark" type="submit" value="Submit">
         </form>
+{% include 'registration/messages.html' %}
 {% endblock %}

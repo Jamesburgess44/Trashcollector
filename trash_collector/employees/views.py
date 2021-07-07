@@ -23,7 +23,13 @@ def employee_signup(request):
         return redirect("/employees/")
     if request.method == 'POST':
         employee_name = request.POST.get('name')
+        if employee_name is '':
+            messages.error(request, 'Please enter information in all fields!')
+            return redirect('/employees/employee/')
         employee_zip_code = request.POST.get('employee_zip_code')
+        if employee_zip_code is '':
+            messages.error(request, 'Please enter information in all fields!')
+            return redirect('/employees/employee/')
         new_employee = Employee(name=employee_name, employee_zip_code=employee_zip_code, user=request.user)
         new_employee.save()
 
