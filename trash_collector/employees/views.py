@@ -54,7 +54,7 @@ def employee_home_view(request):
     day_of_the_week = calendar.day_name[curr_date.weekday()]
     todays_customers = []
     for customer in all_customers:
-        if (customer.customer_zip_code == employee_info.employee_zip_code) and (customer.weekly_pickup_day == day_of_the_week.lower() or customer.onetime_pickup_date == day_of_the_week.lower()) and (customer.start_suspension_date is None):
+        if (customer.customer_zip_code == employee_info.employee_zip_code) and (customer.weekly_pickup_day.lower() == day_of_the_week.lower() or customer.onetime_pickup_date == day_of_the_week.lower()) and (customer.start_suspension_date is None):
             todays_customers.append(customer)
     context = {
         "todays_customers": todays_customers
