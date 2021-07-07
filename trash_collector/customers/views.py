@@ -29,9 +29,21 @@ def customer_signup(request):
         return redirect("/customers/")
     if request.method == 'POST':
         customer_name = request.POST.get('name')
+        if customer_name is None:
+            messages.error(request, 'Please complete all fields!')
+            return redirect('/customers/customer/')
         customer_address = request.POST.get('customer_address')
+        if customer_address is None:
+            messages.error(request, 'Please complete all fields!')
+            return redirect('/customers/customer/')
         customer_zip_code = request.POST.get('customer_zip_code')
+        if customer_zip_code is None:
+            messages.error(request, 'Please complete all fields!')
+            return redirect('/customers/customer/')
         customer_weekly_pickup_day = day_input
+        if day_input is None:
+            messages.error(request, 'Please complete all fields!')
+            return redirect('/customers/customer/')
         new_customer = Customer(name=customer_name, customer_address=customer_address,
                                 customer_zip_code=customer_zip_code, weekly_pickup_day=customer_weekly_pickup_day,
                                 user=request.user)
@@ -56,6 +68,7 @@ def customer_account_info(request):
     user = request.user
     customer = Customer.objects.filter(user_id=user.id)
     if not customer.exists():
+        messages.error(request, 'You must register first!')
         return redirect("/customers/customer")
     customer_info = Customer.objects.get(user_id=user.id)
     form = customer_forms(request.POST, instance=customer_info)
@@ -75,6 +88,7 @@ def change_pickup_day(request):
     day_input = request.POST.get('day_of_week')
     customer = Customer.objects.filter(user_id=user.id)
     if not customer.exists():
+        messages.error(request, 'You must register first!')
         return redirect("/customers/customer")
     customer_info = Customer.objects.get(user_id=user.id)
     form = change_pickup_form(request.POST, instance=customer_info)

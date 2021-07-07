@@ -93,13 +93,13 @@ def confirm_pickup(request, customer_id):
             customer_update.customer_balance += 5
             customer_update.weekly_pickup_confirmed = True
             customer_update.save()
-            messages.success(request, f'{customer_update.name} pickup confirmed')
+            messages.success(request, f'pickup confirmed for {customer_update.name}')
             return redirect('/employees/')
     elif employee_confirm_pickup.lower() == 'no':
         customer_update.weekly_pickup_confirmed = False
         customer_update.save()
         return redirect('/employees/')
     if customer_update.weekly_pickup_confirmed is True:
-        messages.error(request, f'{customer_update.name} pickup already confirmed')
+        messages.error(request, f'pickup already confirmed for {customer_update.name} ')
 
     return redirect('/employees/')
