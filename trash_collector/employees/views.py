@@ -58,6 +58,10 @@ def employee_home_view(request):
     all_customers = customer_model.objects.all()
     curr_date = date.today()
     day_of_the_week = calendar.day_name[curr_date.weekday()]
+    if day_of_the_week == 'Sunday':
+        for customer in all_customers:
+            customer.weekly_pickup_confirmed = False
+            customer.save()
     todays_customers = []
     for customer in all_customers:
         if (customer.customer_zip_code == employee_info.employee_zip_code) and (customer.weekly_pickup_day.lower() == day_of_the_week.lower() or customer.onetime_pickup_date == curr_date) and (customer.start_suspension_date is None) and (customer.weekly_pickup_confirmed is False):
@@ -81,7 +85,7 @@ def choose_by_day(request):
             for customer in all_customers:
                 if (customer.customer_zip_code == employee_info.employee_zip_code) and (
                         customer.weekly_pickup_day.lower() == day.lower(
-                ) or customer.onetime_pickup_date == day.lower()) and (customer.start_suspension_date is None):
+                ) or customer.onetime_pickup_date == day.lower()) and (customer.start_suspension_date is None) and (customer.weekly_pickup_confirmed is False):
                     search_by_day.append(customer)
             context = {
                 "search_by_day": search_by_day
@@ -96,16 +100,12 @@ def confirm_pickup(request, customer_id):
     customer = apps.get_model('customers.Customer')
     customer_update = customer.objects.get(user_id=customer_id)
     if customer_update.weekly_pickup_confirmed is False:
-        if employee_confirm_pickup.lower() == 'yes':
+        if employee_confirm_pickup == 'Confirm Pickup':
             customer_update.customer_balance += 5
             customer_update.weekly_pickup_confirmed = True
             customer_update.save()
             messages.success(request, f'pickup confirmed for {customer_update.name}')
             return redirect('/employees/')
-    elif employee_confirm_pickup.lower() == 'no':
-        customer_update.weekly_pickup_confirmed = False
-        customer_update.save()
-        return redirect('/employees/')
     if customer_update.weekly_pickup_confirmed is True:
         messages.error(request, f'pickup already confirmed for {customer_update.name} ')
 
