@@ -5,6 +5,8 @@ from .models import Employee
 import calendar
 from datetime import date
 from django.contrib import messages
+
+
 # Create your views here.
 
 # TODO: Create a function for each path created in employees/urls.py. Each will need a template as well.
@@ -64,7 +66,9 @@ def employee_home_view(request):
             customer.save()
     todays_customers = []
     for customer in all_customers:
-        if (customer.customer_zip_code == employee_info.employee_zip_code) and (customer.weekly_pickup_day.lower() == day_of_the_week.lower() or customer.onetime_pickup_date == curr_date) and (customer.start_suspension_date is None) and (customer.weekly_pickup_confirmed is False):
+        if (customer.customer_zip_code == employee_info.employee_zip_code) and (
+                customer.weekly_pickup_day.lower() == day_of_the_week.lower() or customer.onetime_pickup_date == curr_date) and (
+                customer.start_suspension_date is None) and (customer.weekly_pickup_confirmed is False):
             todays_customers.append(customer)
     context = {
         "todays_customers": todays_customers
@@ -85,7 +89,8 @@ def choose_by_day(request):
             for customer in all_customers:
                 if (customer.customer_zip_code == employee_info.employee_zip_code) and (
                         customer.weekly_pickup_day.lower() == day.lower(
-                ) or customer.onetime_pickup_date == day.lower()) and (customer.start_suspension_date is None) and (customer.weekly_pickup_confirmed is False):
+                ) or customer.onetime_pickup_date == day.lower()) and (customer.start_suspension_date is None) and (
+                        customer.weekly_pickup_confirmed is False):
                     search_by_day.append(customer)
             context = {
                 "search_by_day": search_by_day

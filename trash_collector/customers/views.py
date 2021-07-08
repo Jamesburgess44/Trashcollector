@@ -31,19 +31,19 @@ def customer_signup(request):
         return redirect("/customers/")
     if request.method == 'POST':
         customer_name = request.POST.get('name')
-        if customer_name is None:
+        if customer_name is '':
             messages.error(request, 'Please complete all fields!')
             return redirect('/customers/customer/')
         customer_address = request.POST.get('customer_address')
-        if customer_address is None:
+        if customer_address is '':
             messages.error(request, 'Please complete all fields!')
             return redirect('/customers/customer/')
         customer_zip_code = request.POST.get('customer_zip_code')
-        if customer_zip_code is None:
+        if customer_zip_code is '':
             messages.error(request, 'Please complete all fields!')
             return redirect('/customers/customer/')
         customer_weekly_pickup_day = day_input
-        if day_input is None:
+        if day_input is '':
             messages.error(request, 'Please complete all fields!')
             return redirect('/customers/customer/')
         new_customer = Customer(name=customer_name, customer_address=customer_address,
