@@ -43,7 +43,7 @@ def customer_signup(request):
             messages.error(request, 'Please complete all fields!')
             return redirect('/customers/customer/')
         customer_weekly_pickup_day = day_input
-        if day_input is '':
+        if day_input is None:
             messages.error(request, 'Please complete all fields!')
             return redirect('/customers/customer/')
         new_customer = Customer(name=customer_name, customer_address=customer_address,
